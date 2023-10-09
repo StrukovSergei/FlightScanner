@@ -3,10 +3,15 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import SearchForm from './src/components/SearchForm';
 
 export default function App() {
+
+  const onSearch = async (data) => {
+    console.log(data);
+  }
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <SearchForm />
+        <SearchForm onSearch={onSearch} />
       </SafeAreaView>
       <StatusBar style="auto" />
     </View>
