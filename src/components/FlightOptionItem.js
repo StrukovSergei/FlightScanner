@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 16,
       color: 'dimgray',
-      fontFamily: 'Courier New',
     },
     airline: {
       color: 'gray',
