@@ -23,6 +23,7 @@ export default function App() {
 
     // get items form the backend
     const response = await searchFlights(data);
+    console.log("🚀 ~ file: App.js:26 ~ onSearch ~ data:", data)
 
     setItems(response.data);
     setLoading(false);

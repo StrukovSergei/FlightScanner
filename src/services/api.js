@@ -18,6 +18,7 @@ export async function searchFlights({ from, to, departDate, returnDate }) {
       data: await response.json(),
     };
   } catch (e) {
+    console.log("🚀 ~ file: api.js:22 ~ searchFlights ~ e:", e)
     return {
       error: 'Network error',
       data: [],

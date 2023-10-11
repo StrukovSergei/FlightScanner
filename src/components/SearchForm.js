@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Feather } from '@expo/vector-icons';
@@ -8,6 +8,8 @@ export default function SearchForm({ onSearch }) {
   const [to, setTo] = useState('');
   const [departDate, setDepartDate] = useState(new Date());
   const [returnDate, setReturnDate] = useState(new Date());
+  const [showDepartDatePicker, setShowDepartDatePicker] = useState(false);
+  const [showReturnDatePicker, setShowReturnDatePicker] = useState(false);
 
   const onSearchPress = () => {
     onSearch({ from, to, departDate, returnDate });
@@ -33,22 +35,41 @@ export default function SearchForm({ onSearch }) {
         style={styles.input}
       />
 
-      <View style={styles.datePicker}>
-        <Feather name="calendar" size={26} color="gray" />
+      <TouchableOpacity onPress={() => setShowDepartDatePicker(true)}>
+        <View style={styles.datePicker}>
+          <Feather name="calendar" size={26} color="gray" />
+          <Text>{departDate.toDateString()}</Text>
+        </View>
+      </TouchableOpacity>
+
+      {showDepartDatePicker && (
         <DateTimePicker
           value={departDate}
-          onChange={(event, date) => setDepartDate(date || new Date())}
+          onChange={(event, date) => {
+            setShowDepartDatePicker(false); // Close the date picker
+            setDepartDate(date || new Date());
+          }}
           minimumDate={new Date()}
         />
-        <Text style={{ fontSize: 20, color: 'gainsboro', marginLeft: 10 }}>
-          |
-        </Text>
+      )}
+
+      <TouchableOpacity onPress={() => setShowReturnDatePicker(true)}>
+        <View style={styles.datePicker}>
+          <Feather name="calendar" size={26} color="gray" />
+          <Text>{returnDate.toDateString()}</Text>
+        </View>
+      </TouchableOpacity>
+
+      {showReturnDatePicker && (
         <DateTimePicker
           value={returnDate}
-          onChange={(event, date) => setReturnDate(date || new Date())}
+          onChange={(event, date) => {
+            setShowReturnDatePicker(false); // Close the date picker
+            setReturnDate(date || new Date());
+          }}
           minimumDate={departDate}
         />
-      </View>
+      )}
 
       <Button title="Search" onPress={onSearchPress} />
     </View>
